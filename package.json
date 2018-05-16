@@ -1,0 +1,30 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "node chat app",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "9.11.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rayonhunte/node-chat-app.git"
+  },
+  "keywords": [
+    "node",
+    "socket.io"
+  ],
+  "author": "Rayon Hunte",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rayonhunte/node-chat-app/issues"
+  },
+  "homepage": "https://github.com/rayonhunte/node-chat-app#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
