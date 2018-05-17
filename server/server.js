@@ -19,15 +19,14 @@ app.use(express.static(publicPath));
 io.on('connection', (socket)=>{
     console.log('New user connected');
 
-    //create new message
-    socket.emit('newMessage', {
-        from: 'rayon',
-        text: 'who are you',
-        createAt: Date.now()
-    });
     //process client message
     socket.on('createMessage',(message)=>{
         console.log(message);
+        io.emit('newMessage', {
+            from: message.from,
+            text: message.text,
+            createAt: new Date().getTime()
+        });
     });
 
     //run when server disconnects
