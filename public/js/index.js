@@ -6,9 +6,15 @@ socket.on('disconnect', ()=>{
     console.log('Disconnected from server');
 });
 
-
-
 socket.on('newMessage', (message)=>{
+    console.log(message);
+});
+
+socket.on('welcome', (message)=>{
+    console.log(message);
+});
+
+socket.on('newUser', (message)=>{
     console.log(message);
 });
 
