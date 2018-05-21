@@ -19,3 +19,12 @@ socket.emit('createEmail',{
 socket.on('newEmail', (email)=>{
     console.log('New Email', email);
 });
+
+
+
+socket.emit('createMessage', {
+    from: 'Frank',
+    text: 'Hi'
+}, (reMsg)=>{
+    console.log(reMsg);
+});
