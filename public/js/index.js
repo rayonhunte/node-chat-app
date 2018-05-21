@@ -18,4 +18,18 @@ socket.on('newUser', (message)=>{
     console.log(message);
 });
 
+socket.emit('createMessage', {
+    from: 'Frank',
+    text: 'Hi'
+}, (reMsg)=>{
+    console.log(reMsg);
+});
+
+$(document).ready(function(){
+    console.log('test');
+    jQuery('form').on('submit', (e)=>{
+        e.preventDefault();
+    });
+});
+
 

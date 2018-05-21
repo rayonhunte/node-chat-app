@@ -26,8 +26,9 @@ io.on('connection', (socket)=>{
         genMessage('Admin', 'a new user has joined the chat'));
 
     //process client message
-    socket.on('createMessage',(message)=>{
+    socket.on('createMessage',(message, callback)=>{
         io.emit('newMessage', genMessage(message.from, message.text));
+        callback('cool mon');
     });
 
     //run when server disconnects
