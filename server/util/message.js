@@ -1,4 +1,4 @@
-let genMessage = (from, text)=>{
+const genMessage = (from, text)=>{
     return {
         from,
         text,
@@ -6,4 +6,12 @@ let genMessage = (from, text)=>{
     };
 };
 
-module.exports = {genMessage};
+const genLocationMsg = (from, lat, long) =>{
+    return {
+        from,
+        url:`https://www.google.com/maps?q=${lat},${long}`,
+        createAt: new Date().getTime()
+    };
+};
+
+module.exports = {genMessage, genLocationMsg};
