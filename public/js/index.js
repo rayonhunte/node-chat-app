@@ -4,6 +4,23 @@ const locationButton = jQuery('#send-location');
 
 const socket = io();
 
+const scrollToBottom = ()=>{
+    //selectors
+    const messages = jQuery('#messages')
+    const newMessage = messages.children('li:last-child');
+    // heights
+    const clientHeight = messages.prop('clientHeight');
+    const scrollTop = messages.prop('scrollTop');
+    const scrollHeight = messages.prop('scrollHeight');
+    const newMessageHeight = newMessage.innerHeight();
+    const lastMessageHeight = newMessage.prev().innerHeight();
+
+    if (clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight){
+        console.log('scroll down');
+        messages.scrollTop(scrollHeight);
+    }
+};
+
 socket.on('connect', ()=>{
     console.log('connected to server');
 });
@@ -20,16 +37,10 @@ socket.on('newMessage', (message)=>{
         displayTime: formattedTime
     });
     jQuery('#messages').append(html);
+    scrollToBottom()
 });
 
 socket.on('newLocationMsg', (locationMsg)=>{
-    // let li = jQuery('<li></li>');
-    // let a = jQuery('<a target="_blank">My Current Location</a>');
-    // let formattedTime = moment(locationMsg.createAt).format('MMM Do, YYYY HH:mm A');
-    // li.text(`${locationMsg.from} ${formattedTime} : `);
-    // a.attr('href', locationMsg.url);
-    // li.append(a);
-    // jQuery('#messages').append(li);
     let formattedTime = moment(locationMsg.createAt).format('MMM Do, YYYY HH:mm A');
     const template = jQuery('#location-message-template').html();
     const html = Mustache.render(template, {
@@ -37,6 +48,7 @@ socket.on('newLocationMsg', (locationMsg)=>{
         displayTime: formattedTime
     }); 
     jQuery('#messages').append(html);
+    scrollToBottom()
 });
 
 jQuery('#message-form').on('submit', (e)=>{
