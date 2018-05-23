@@ -1,3 +1,7 @@
+// globals 
+const msgText = jQuery('[name=message]');
+const locationButton = jQuery('#send-location');
+
 const socket = io();
 
 socket.on('connect', ()=>{
@@ -28,29 +32,31 @@ jQuery('#message-form').on('submit', (e)=>{
     e.preventDefault();
     socket.emit('createMessage', {
         from: 'User',
-        text: jQuery('[name=message]').val()
+        text: msgText.val()
     }, (reply)=>{
         console.log(reply);
+        msgText.val('');
     });
 });
 
-const locationButton = jQuery('#send-location'); 
+
 
 locationButton.click(()=>{
    if (!navigator.geolocation){
        return alert('no geolocation available');
    }
-   navigator.geolocation.getCurrentPosition(
-       (position)=>{
-           console.log(position);
+   locationButton.attr('disabled', 'disabled').text('Sending Location');
+   navigator.geolocation.getCurrentPosition((position)=>{
            const {latitude, longitude} = position.coords;
            socket.emit('createLocationMessage', {
                latitude,
                longitude
            });
+           locationButton.removeAttr('disabled').text('Send Location');
        },
        ()=>{
            alert('error fetching location');
+           locationButton.removeAttr('disabled').text('Send Location');
        }
     );
 });
